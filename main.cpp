@@ -80,18 +80,32 @@ class Bond: public Agent
 private:
 
 public:
-
+    int movement()
+    {
+        return 1;
+    }
 
 };
 class Wick: public Agent
 {
 private:
 
+public:
+    int movement ()
+    {
+        return -1;
+    }
 
 };
 class Bourne:public Agent
 {
 private:
+
+public:
+    int movement ()
+    {
+        return 1;
+    }
 
 };
 class BGround
@@ -172,17 +186,21 @@ void SimulateRound(BGround my_map,vector<Agent> AgentArray,int rounds)
             int xmovement = 0;
             int ymovement = 0;
 
+            Bond b;
+            Wick w;
+            Bourne r;
+
             if(AgentArray[i].getAgentType()==1)
             {
-                ymovement++;
+                ymovement= b.movement();
             }
             else if(AgentArray[i].getAgentType()==2)
             {
-                ymovement--;
+                ymovement=w.movement();
             }
             else
             {
-                xmovement++;
+                xmovement=r.movement();
             }
 
             coord enemy_position;
@@ -217,9 +235,9 @@ void SimulateRound(BGround my_map,vector<Agent> AgentArray,int rounds)
                     {
 
                         my_map.setPositionValue(AgentArray[i].getAgentType(),enemy_position);
-                         my_map.setPositionValue(0,agent_position);
+                        my_map.setPositionValue(0,agent_position);
                         AgentArray[i].setCoord(enemy_position);
-                         AgentArray.erase(AgentArray.begin()+enemy_index);
+                        AgentArray.erase(AgentArray.begin()+enemy_index);
                     }
                     else
                     {
@@ -235,9 +253,9 @@ void SimulateRound(BGround my_map,vector<Agent> AgentArray,int rounds)
                 }
             }
             if(out_of_limit(agent_position)==true)
-                {
-                    AgentArray.erase(AgentArray.begin()+i);
-                }
+            {
+                AgentArray.erase(AgentArray.begin()+i);
+            }
         }
         cout<<r<<'\n';
         my_map.print_map();
